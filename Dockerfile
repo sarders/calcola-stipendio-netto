@@ -1,14 +1,17 @@
-# Use an official Java runtime as base image
-FROM eclipse-temurin:17-jdk
+# Use an official Node.js runtime as a parent image
+FROM node:14
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the built JAR into the container
-COPY target/calcola-stipendio-netto-0.0.1-SNAPSHOT.jar app.jar
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Expose port 8080
+# Install dependencies
+RUN npm install
+
+# Expose port 8080 for the app to run
 EXPOSE 8080
 
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+# Define the command to run your app
+CMD ["npm", "start"]
