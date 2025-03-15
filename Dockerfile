@@ -1,17 +1,14 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+# Use an official OpenJDK runtime as a parent image
+FROM eclipse-temurin:17-jdk-alpine
 
-# Set the working directory in the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy the built JAR file into the container
+COPY target/calcola-stipendio-netto.jar app.jar
 
-# Install dependencies
-RUN npm install
-
-# Expose port 8080 for the app to run
+# Expose the application port (modify if needed)
 EXPOSE 8080
 
-# Define the command to run your app
-CMD ["npm", "start"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
